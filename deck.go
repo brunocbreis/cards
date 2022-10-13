@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 type Deck []Card
@@ -62,4 +64,18 @@ func newDeckFromJSON(fileName string) (Deck, error) {
 	json.Unmarshal(jsonBytes, &newDeck)
 
 	return newDeck, err
+}
+
+// Randomizing craziness for shuffling the deck
+func randomNumber(max int) int {
+	s := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(s)
+	return r.Intn(max)
+}
+
+func (d Deck) shuffle() {
+	for i := range d {
+		r := randomNumber(len(d))
+		d[i], d[r] = d[r], d[i]
+	}
 }
