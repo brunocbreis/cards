@@ -1,20 +1,19 @@
 package main
 
+import "fmt"
+
 func main() {
-	// deck := newDeck()
+	deck := newDeck()
+	deck.shuffle()
 
-	// var hand Deck
+	var hand Deck
+	var flop Deck
 
-	// hand, deck = deck.deal(5)
+	hand = deck.deal(2)
 
-	// fmt.Println("Your hand is:")
-	// hand.print()
-	// fmt.Printf("\nThere are %d cards left in the deck:\n", len(deck))
-	// fmt.Println(deck.toString())
+	flop = deck.deal(5)
 
-	// hand.toJSON("myHand.json")
-
-	importedHand, _ := newDeckFromJSON("myHand.json")
-	importedHand.print()
-
+	fmt.Printf("Your hand is:\t%s\n", hand.toString())
+	fmt.Printf("The flop is:\t%s\n", flop.toString())
+	fmt.Printf("The remaining deck has %d cards.\n", len(deck))
 }

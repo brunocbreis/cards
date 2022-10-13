@@ -28,13 +28,14 @@ func (d Deck) print() {
 	}
 }
 
-func (d Deck) deal(handSize int) (Deck, Deck) {
-	// Deals a hand and returns the hand and the new deck back
+func (d *Deck) deal(handSize int) Deck {
+	// Deals a hand and returns the hand. Removes cards from deck
 
-	hand := d[:handSize]
-	deck := d[handSize:]
+	oldD := *d
+	hand := oldD[:handSize]
+	*d = oldD[handSize:]
 
-	return hand, deck
+	return hand
 }
 
 func (d Deck) toString() string {
@@ -46,6 +47,7 @@ func (d Deck) toString() string {
 	return strings.Join(deckSlice, ", ")
 }
 
+// For saving and retrieving
 func (d Deck) toJSON(fileName string) error {
 	jsonBytes, err := json.MarshalIndent(d, "", "\t")
 	if err != nil {
